@@ -129,47 +129,62 @@ export async function getMediaIdFromUrl(
 }
 
 /**
- * Setup guide for Instagram API access
+ * Setup guide for Instagram API access (Updated 2026)
  */
 export const INSTAGRAM_API_SETUP_GUIDE = `
-## How to Get Instagram API Access
+## How to Get Instagram API Access (Updated 2026)
 
-### Step 1: Convert to Business/Creator Account
+⚠️ Facebook has updated their developer dashboard. The old "Business type" option is gone — now you select a "Use Case".
+
+### Step 1: Convert to Business/Creator Account ✅ (You did this!)
 1. Open Instagram app → Settings → Account
 2. Tap "Switch to Professional Account"
 3. Choose "Business" or "Creator"
 4. Connect to a Facebook Page (create one if needed)
 
-### Step 2: Create Facebook Developer App
-1. Go to developers.facebook.com
-2. Click "Create App" → Choose "Business" type
-3. Add "Instagram Graph API" product
-4. In Settings → Basic, note your App ID and App Secret
+### Step 2: Create Facebook Developer App (NEW FLOW)
+1. Go to: developers.facebook.com/apps/creation/
+2. Enter app name (e.g., "Nihawi Giveaway Picker") and email
+3. Click "Next"
+4. ⭐ SELECT USE CASE: "Manage messaging & content on Instagram"
+   - This automatically adds: instagram_manage_comments, instagram_basic, etc.
+5. Click "Next"
+6. Business Portfolio: Select "I don't want to connect a business portfolio yet"
+7. Click "Next" → Review → "Create App"
 
 ### Step 3: Get Access Token
 1. Go to Graph API Explorer: developers.facebook.com/tools/explorer
-2. Select your app
-3. Click "Get Token" → "Get Instagram Access Token"
-4. Select permissions: instagram_basic, instagram_manage_comments
-5. Authorize with your Instagram account
-6. Copy the generated access token (valid for 1 hour)
+2. Select your new app from dropdown (top right)
+3. Click "Generate Access Token"
+4. Authorize when prompted → Click "Continue" then "Done"
+5. Make sure these permissions are granted:
+   ✅ instagram_basic
+   ✅ instagram_manage_comments
+   ✅ pages_show_list
+   ✅ pages_read_engagement
+6. Copy the generated access token (starts with "EAAB...", valid for 1 hour)
 
-### Step 4: Get Long-Lived Token (Optional)
-For production use, exchange for a 60-day token:
-GET /oauth/access_token?grant_type=fb_exchange_token&client_id={app-id}&client_secret={app-secret}&fb_exchange_token={short-lived-token}
+### Step 4: Get Media ID
+Option A: Use Graph API Explorer
+1. Change endpoint to: GET /me/accounts
+2. Click "Submit" → Find your Facebook Page → copy the "id"
+3. Change endpoint to: GET /{page-id}/media?fields=id,permalink
+4. Click "Submit" → Find your reel → copy the "id" field
 
-### Step 5: Get Media ID
-Option A: Use Instagram oEmbed API (see getMediaIdFromUrl function)
-Option B: Use Instagram Graph API:
-GET /{ig-user-id}/media?fields=id,permalink
-Then match the permalink to your post URL
+Option B: Use Instagram oEmbed API (see getMediaIdFromUrl function)
 
-### Step 6: Fetch Comments
+### Step 5: Fetch Comments
 Use the fetchInstagramComments function with your access token and media ID.
 
 ## Important Notes
 - Access tokens expire (1 hour for short-lived, 60 days for long-lived)
 - Rate limit: 200 calls per hour per user
 - Only works on posts YOU own (Business/Creator account)
-- Requires app review for production use (not needed for development)
+- For development/testing, no app review needed
+- Business portfolio is optional for development
+
+## Alternative (Easier but Paid)
+If API setup is too complex:
+- Phantombuster (~$30/month): Just paste reel URL, get CSV
+- Apify (~$5-10 one-time): Pay-per-use Instagram scraper
 `;

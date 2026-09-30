@@ -1,5 +1,9 @@
 # 🚀 Instagram API Setup Guide for Nihawi Puan x Jaui Giveaway
 
+## ⚠️ IMPORTANT: Facebook Updated Their Dashboard (2026)
+
+The old "Create App → Business type" flow **no longer exists**. Facebook now uses "Use Cases" instead. This guide has been updated with the current flow.
+
 ## ✅ You're Already Halfway There!
 
 Great news — you've already converted your Instagram to a **Creator account**! That's the first step done.
@@ -32,27 +36,44 @@ Your Creator account needs to be connected to a Facebook Page for the API to wor
 
 ---
 
-### Step 3: Create a New App
-1. In the Facebook Developer dashboard, click "My Apps" (top right)
-2. Click "Create App"
-3. Choose **"Business"** type (NOT "Consumer" or "Other")
-4. Fill in:
+### Step 3: Create a New App (NEW FLOW)
+1. Go directly to: **[developers.facebook.com/apps/creation/](https://developers.facebook.com/apps/creation/)**
+2. Fill in:
    - **App name:** "Nihawi Giveaway Picker" (or whatever you want)
    - **App contact email:** your email
-   - **Business account:** Select your business (or create one)
-5. Click "Create App"
+3. Click **"Next"**
 
 ---
 
-### Step 4: Add Instagram Graph API Product
-1. In your app dashboard, scroll down to "Add products to your app"
-2. Find **"Instagram"** → Click "Set Up"
-3. It will say "Instagram Graph API" → Click "Get Started"
-4. Follow the prompts to connect your Instagram account
+### Step 4: ⭐ Select Use Case (KEY STEP)
+1. You'll see a list of **Use Cases** (not "app types" anymore)
+2. Find and select: **"Manage messaging & content on Instagram"**
+3. This automatically adds:
+   - ✅ instagram_manage_comments (what we need!)
+   - ✅ instagram_basic
+   - ✅ instagram_manage_insights
+   - ✅ And many more Instagram permissions
+4. Click **"Next"**
+
+⚠️ **DO NOT** select "Authenticate with Facebook Login" — that's the wrong use case!
 
 ---
 
-### Step 5: Get Your Access Token (Most Important!)
+### Step 5: Business Portfolio (Skip for Now)
+1. You'll see options to connect a business portfolio
+2. Select: **"I don't want to connect a business portfolio yet"**
+3. Click **"Next"**
+
+💡 You can always connect a business portfolio later if needed. For development/testing, this is optional.
+
+### Step 6: Review & Create App
+1. Review your app details (name, use case, business settings)
+2. Accept the Meta Platform Terms
+3. Click **"Go to dashboard"** or **"Create App"**
+
+🎉 Your app is now created! Next step is getting the access token.
+
+### Step 7: Get Your Access Token (Most Important!)
 This is the key that lets the app fetch your comments.
 
 1. Go to [Graph API Explorer](https://developers.facebook.com/tools/explorer/)
@@ -72,7 +93,7 @@ This is the key that lets the app fetch your comments.
 
 ---
 
-### Step 6: Get Your Media ID
+### Step 8: Get Your Media ID
 You need the numeric ID of your reel (not the URL).
 
 **Method A: Using Graph API Explorer (Easiest)**
@@ -91,19 +112,19 @@ You need the numeric ID of your reel (not the URL).
    ```
    https://graph.facebook.com/v18.0/instagram_oembed?url=https://www.instagram.com/reel/DdQur5BugOd/&access_token=YOUR_ACCESS_TOKEN
    ```
-2. Replace `YOUR_ACCESS_TOKEN` with the token from Step 5
+2. Replace `YOUR_ACCESS_TOKEN` with the token from Step 7
 3. The response will include a `media_id` field — that's what you need
 
 ---
 
-### Step 7: Import Comments in the App! 🎉
+### Step 9: Import Comments in the App! 🎉
 Now you're ready to fetch all 5000+ comments automatically!
 
 1. Go to your app's dashboard
 2. Click **"Setup Instagram API"** (or go to Import Guide → "Step-by-Step Setup Wizard")
 3. Follow the interactive wizard — it will ask for:
-   - Your **Access Token** (from Step 5)
-   - Your **Media ID** (from Step 6)
+   - Your **Access Token** (from Step 7)
+   - Your **Media ID** (from Step 8)
 4. Click **"Fetch All Comments"**
 5. Wait a few seconds...
 6. **Done!** All comments are now imported and parsed
@@ -140,8 +161,8 @@ Unfortunately, Instagram doesn't allow checking if someone follows another accou
 - [ ] Instagram converted to Creator account ✅ (you did this!)
 - [ ] Instagram connected to Facebook Page
 - [ ] Facebook Developer account created
-- [ ] New app created (Business type)
-- [ ] Instagram Graph API product added
+- [ ] New app created (via apps/creation/)
+- [ ] Use case selected: "Manage messaging & content on Instagram"
 - [ ] Access token generated (with 4 permissions)
 - [ ] Media ID obtained for your reel
 - [ ] Comments imported via the app
