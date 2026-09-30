@@ -39,27 +39,35 @@ Now shows **3 methods** to import comments:
 
 ## 📋 How to Use the Instagram API
 
-### Step 1: Convert to Business/Creator Account
+### Step 1: Convert to Business/Creator Account ✅ (You did this!)
 1. Open Instagram app → Settings → Account
 2. Tap "Switch to Professional Account"
 3. Choose "Business" or "Creator"
 4. Connect to a Facebook Page (create one if needed)
 
-### Step 2: Create Facebook Developer App
-1. Go to [developers.facebook.com](https://developers.facebook.com)
-2. Click "Create App" → Choose "Business" type
-3. Add "Instagram Graph API" product
-4. In Settings → Basic, note your **App ID** and **App Secret**
+### Step 2: Create Facebook Developer App (NEW 2026 FLOW)
+1. Go directly to: [developers.facebook.com/apps/creation/](https://developers.facebook.com/apps/creation/)
+2. Enter app name (e.g., "Nihawi Giveaway Picker") and email
+3. Click "Next"
+4. ⭐ **SELECT USE CASE: "Manage messaging & content on Instagram"**
+   - This automatically adds instagram_manage_comments, instagram_basic, etc.
+5. Click "Next"
+6. Business Portfolio: Select "I don't want to connect a business portfolio yet"
+7. Click "Next" → Review → "Create App"
+
+⚠️ **Note:** The old "Business type" option no longer exists. Facebook now uses "Use Cases".
 
 ### Step 3: Get Access Token
 1. Go to [Graph API Explorer](https://developers.facebook.com/tools/explorer)
-2. Select your app
-3. Click "Get Token" → "Get Instagram Access Token"
-4. Select permissions:
+2. Select your new app from dropdown (top right)
+3. Click "Generate Access Token"
+4. Authorize when prompted → Click "Continue" then "Done"
+5. Make sure these permissions are granted:
    - `instagram_basic`
    - `instagram_manage_comments`
-5. Authorize with your Instagram account
-6. Copy the generated access token (valid for 1 hour)
+   - `pages_show_list`
+   - `pages_read_engagement`
+6. Copy the generated access token (starts with "EAAB...", valid for 1 hour)
 
 ### Step 4: Get Long-Lived Token (Optional but Recommended)
 For production use, exchange for a 60-day token:
