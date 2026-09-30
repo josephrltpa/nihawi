@@ -3,7 +3,7 @@
 A comprehensive web application for managing Instagram giveaways with transparent, auditable winner selection.
 
 ![Status](https://img.shields.io/badge/status-production--ready-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
+![Deploy](https://img.shields.io/badge/deploy-Vercel-black)
 
 ## ✨ Features
 
@@ -17,7 +17,59 @@ A comprehensive web application for managing Instagram giveaways with transparen
 - **Audit Log** — Immutable record of all admin actions
 - **Demo Mode** — 30+ sample entries for testing
 
-## 🚀 Quick Start (Local)
+---
+
+## 🚀 Deploy to Vercel (Step-by-Step)
+
+### Step 1: Push Code to GitHub
+
+```bash
+# Initialize git (if not done yet)
+git init
+git add .
+git commit -m "✨ Initial commit - Nihawi x Jaui Giveaway Picker"
+
+# Create a new repo on GitHub, then:
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/nihawi-jaui-giveaway.git
+git push -u origin main
+```
+
+### Step 2: Import to Vercel
+
+1. Go to [vercel.com/new](https://vercel.com/new)
+2. Click **"Import Git Repository"**
+3. Select your repository: `nihawi-jaui-giveaway`
+4. Vercel auto-detects **Vite** — settings should be:
+   - **Framework Preset:** Vite
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+   - **Install Command:** `npm install`
+5. Click **"Deploy"**
+
+### Step 3: Done! 🎉
+
+Your app is live at `https://your-project.vercel.app`
+
+**Login:** Click **"Enter Demo Mode"** button (no account needed for demo).
+
+---
+
+## 🔄 Updating Your Deployment
+
+After any code changes:
+
+```bash
+git add .
+git commit -m "your update message"
+git push
+```
+
+Vercel auto-deploys on every push to `main`.
+
+---
+
+## 🛠️ Local Development
 
 ```bash
 # Install dependencies
@@ -28,130 +80,14 @@ npm run dev
 
 # Build for production
 npm run build
-```
 
-Then open `http://localhost:5173` and click **"Enter Demo Mode"**.
-
----
-
-## 📦 Deployment Guides
-
-### Option 1: Vercel (Recommended — Easiest)
-
-1. **Push to GitHub:**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/nihawi-jaui-giveaway.git
-   git push -u origin main
-   ```
-
-2. **Connect to Vercel:**
-   - Go to [vercel.com/new](https://vercel.com/new)
-   - Import your GitHub repository
-   - Framework Preset: **Vite**
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-   - Click **Deploy**
-
-3. Your app is live at `https://your-project.vercel.app`
-
----
-
-### Option 2: Netlify
-
-1. **Push to GitHub** (same as above)
-
-2. **Connect to Netlify:**
-   - Go to [netlify.com](https://www.netlify.com/)
-   - Click **"Add new site" → "Import an existing project"**
-   - Connect your GitHub repository
-   - Build settings:
-     - Build command: `npm run build`
-     - Publish directory: `dist`
-   - Click **Deploy**
-
-3. **Alternative — Drag & Drop:**
-   - Run `npm run build` locally
-   - Drag the `dist` folder to [app.netlify.com/drop](https://app.netlify.com/drop)
-
----
-
-### Option 3: GitHub Pages
-
-1. **Install the gh-pages package:**
-   ```bash
-   npm install -D gh-pages
-   ```
-
-2. **Update `vite.config.js`** — add `base` property:
-   ```js
-   export default defineConfig({
-     base: '/nihawi-jaui-giveaway/',  // Your repo name
-     // ... rest of config
-   })
-   ```
-
-3. **Add deploy script to `package.json`:**
-   ```json
-   {
-     "scripts": {
-       "deploy": "npm run build && gh-pages -d dist"
-     }
-   }
-   ```
-
-4. **Deploy:**
-   ```bash
-   npm run deploy
-   ```
-
-5. **Enable GitHub Pages:**
-   - Go to repo Settings → Pages
-   - Source: **Deploy from a branch**
-   - Branch: **gh-pages** / root
-   - Your app is live at `https://YOUR_USERNAME.github.io/nihawi-jaui-giveaway/`
-
----
-
-### Option 4: Cloudflare Pages
-
-1. Push to GitHub
-2. Go to [pages.cloudflare.com](https://pages.cloudflare.com/)
-3. Connect repository
-4. Build settings:
-   - Framework: **Vite**
-   - Build command: `npm run build`
-   - Output directory: `dist`
-5. Deploy!
-
----
-
-### Option 5: Firebase Hosting
-
-```bash
-# Install Firebase CLI
-npm install -g firebase-tools
-
-# Login
-firebase login
-
-# Initialize
-firebase init hosting
-# Select: "dist" as public directory
-# Single-page app: Yes
-# GitHub auto-build: Yes (optional)
-
-# Deploy
-npm run build
-firebase deploy
+# Preview production build
+npm run preview
 ```
 
 ---
 
-## 🏗️ Architecture
+## 📦 Architecture
 
 ```
 src/
@@ -182,6 +118,8 @@ src/
     └── seedData.ts            # Demo data generator
 ```
 
+---
+
 ## 🔐 Compliance Notes
 
 - ✅ Does NOT scrape Instagram
@@ -191,6 +129,8 @@ src/
 - ✅ Full audit trail for transparency
 - ✅ Admin responsible for local giveaway law compliance
 
+---
+
 ## 📋 Eligibility Rules
 
 1. Comment must contain ≥3 distinct @mentions (not self, not target accounts)
@@ -199,15 +139,19 @@ src/
 4. No duplicate/spam entries
 5. 5 winners + 3 backups selected via seeded random draw
 
+---
+
 ## 🛠️ Tech Stack
 
-- React 18 + TypeScript
-- Vite (build tool)
-- Tailwind CSS v4
-- React Router (HashRouter for static hosting)
-- canvas-confetti (winner celebration)
-- lucide-react (icons)
-- date-fns (date formatting)
+- **React 18** + **TypeScript**
+- **Vite** (build tool)
+- **Tailwind CSS v4**
+- **React Router** (HashRouter for static hosting)
+- **canvas-confetti** (winner celebration)
+- **lucide-react** (icons)
+- **date-fns** (date formatting)
+
+---
 
 ## 📄 License
 
