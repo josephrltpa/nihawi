@@ -121,19 +121,34 @@ export function exportAuditLogCSV(logs: AuditLog[]): void {
 export function generateAnnouncement(
   winners: Winner[],
   backups: BackupWinner[],
-  claimDeadlineHours: number = 48
+  claimDeadlineHours: number = 48,
+  reverseOrder: boolean = true
 ): string {
+  // Sort by rank
   const sortedWinners = [...winners].sort((a, b) => a.prize_rank - b.prize_rank);
   
-  let text = `🎉 WINNERS ANNOUNCEMENT 🎉\n\n`;
-  text += `Thank you to everyone who entered our giveaway!\n\n`;
-  text += `Here are the winners:\n\n`;
+  // If reverseOrder is true, show: 3rd → 2nd → 1st → Consolation
+  // This creates suspense when announcing live
+  const displayOrder = reverseOrder 
+    ? [...sortedWinners].sort((a, b) => {
+        // Consolation prizes (rank 4,5) come first
+        // Then 3rd (rank 3), 2nd (rank 2), 1st (rank 1)
+        const orderA = a.prize_rank <= 3 ? (4 - a.prize_rank) : 0;
+        const orderB = b.prize_rank <= 3 ? (4 - b.prize_rank) : 0;
+        return orderA - orderB;
+      })
+    : sortedWinners;
   
-  sortedWinners.forEach(w => {
+  let text = `🎉 WINNERS ANNOUNCEMENT 🎉\n\n`;
+  text += `Thank you to everyone who entered our Nihawi × Jaui giveaway!\n\n`;
+  text += `And now... the winners are:\n\n`;
+  
+  displayOrder.forEach(w => {
+    const rankEmoji = w.prize_rank === 1 ? '🥇' : w.prize_rank === 2 ? '🥈' : w.prize_rank === 3 ? '🥉' : '🎁';
     const rankLabel = w.prize_rank <= 3 
       ? `${getOrdinal(w.prize_rank)} Prize` 
       : `Consolation Prize`;
-    text += `${rankLabel}: @${w.entrant_username}\n`;
+    text += `${rankEmoji} ${rankLabel}: @${w.entrant_username}\n`;
   });
   
   if (backups.length > 0) {

@@ -17,6 +17,7 @@ import DrawPage from './pages/DrawPage';
 import WinnersPage from './pages/WinnersPage';
 import AuditLogPage from './pages/AuditLogPage';
 import AnnouncementPage from './pages/AnnouncementPage';
+import ImportGuidePage from './pages/ImportGuidePage';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { state } = useApp();
@@ -45,6 +46,7 @@ function AppRoutes() {
       <Route path="/giveaways/:giveawayId/winners" element={<ProtectedRoute><WinnersPage /></ProtectedRoute>} />
       <Route path="/giveaways/:giveawayId/audit-log" element={<ProtectedRoute><AuditLogPage /></ProtectedRoute>} />
       <Route path="/giveaways/:giveawayId/announcement" element={<ProtectedRoute><AnnouncementPage /></ProtectedRoute>} />
+      <Route path="/giveaways/:giveawayId/import-guide" element={<ProtectedRoute><ImportGuidePage /></ProtectedRoute>} />
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

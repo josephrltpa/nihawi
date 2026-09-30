@@ -14,14 +14,15 @@ export default function AnnouncementPage() {
   const { state } = useApp();
   const [copied, setCopied] = useState(false);
   const [claimHours, setClaimHours] = useState(48);
+  const [reverseOrder, setReverseOrder] = useState(true);
   
   const winners = state.winners.filter(w => w.giveaway_id === giveawayId);
   const backups = state.backupWinners.filter(b => b.giveaway_id === giveawayId);
   const giveaway = state.giveaways.find(g => g.id === giveawayId);
   
   const announcement = useMemo(() => {
-    return generateAnnouncement(winners, backups, claimHours);
-  }, [winners, backups, claimHours]);
+    return generateAnnouncement(winners, backups, claimHours, reverseOrder);
+  }, [winners, backups, claimHours, reverseOrder]);
   
   const copyToClipboard = () => {
     navigator.clipboard.writeText(announcement);
@@ -53,7 +54,7 @@ export default function AnnouncementPage() {
       
       {/* Settings */}
       <Card className="p-4">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Claim Deadline (hours)</label>
             <input
@@ -64,6 +65,17 @@ export default function AnnouncementPage() {
               min={1}
               max={168}
             />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-400 mb-1">Announcement Order</label>
+            <select
+              value={reverseOrder ? 'reverse' : 'normal'}
+              onChange={e => setReverseOrder(e.target.value === 'reverse')}
+              className="bg-gray-900/50 border border-gray-700 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+            >
+              <option value="reverse">3rd → 2nd → 1st → Consolation (suspense)</option>
+              <option value="normal">1st → 2nd → 3rd → Consolation</option>
+            </select>
           </div>
           <Button variant="ghost" size="sm" onClick={copyToClipboard}>
             {copied ? <Check size={14} className="mr-1 text-emerald-400" /> : <Copy size={14} className="mr-1" />}
