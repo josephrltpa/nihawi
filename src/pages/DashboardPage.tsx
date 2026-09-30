@@ -71,32 +71,67 @@ export default function DashboardPage() {
         </div>
       </div>
       
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {stats.map(stat => (
-          <StatCard key={stat.title} {...stat} />
-        ))}
-      </div>
+      {/* Empty State - No Comments Yet */}
+      {totalComments === 0 && (
+        <Card className="p-8 text-center border-2 border-dashed border-pink-500/30 bg-gradient-to-br from-pink-500/5 to-violet-500/5">
+          <div className="max-w-md mx-auto">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-pink-500 to-violet-600 flex items-center justify-center">
+              <Upload className="text-white" size={28} />
+            </div>
+            <h2 className="text-xl font-bold text-white mb-2">Ready to Import Comments</h2>
+            <p className="text-sm text-gray-400 mb-6">
+              Your giveaway is set up! Now import the 5000+ comments from your reel using Phantombuster, Apify, or manual CSV export.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button 
+                variant="primary" 
+                size="lg" 
+                onClick={() => navigate(`/giveaways/${currentGiveaway.id}/import-guide`)}
+              >
+                <Upload size={18} className="mr-2" /> Import Guide
+              </Button>
+              <Button 
+                variant="secondary" 
+                size="lg" 
+                onClick={() => navigate(`/giveaways/${currentGiveaway.id}`)}
+              >
+                <Gift size={18} className="mr-2" /> Go to Settings
+              </Button>
+            </div>
+          </div>
+        </Card>
+      )}
       
-      {/* Quick Actions */}
-      <Card className="p-4">
-        <h2 className="text-sm font-medium text-gray-300 mb-3">Quick Actions</h2>
+      {/* Stats Grid */}
+      {totalComments > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {quickActions.map(action => (
-            <button
-              key={action.label}
-              onClick={() => navigate(action.to)}
-              className="flex items-center gap-3 p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-gray-600 transition-all group"
-            >
-              <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${action.color} flex items-center justify-center text-white shadow-lg`}>
-                {action.icon}
-              </div>
-              <span className="text-sm text-gray-300 group-hover:text-white transition-colors">{action.label}</span>
-              <ArrowRight size={14} className="ml-auto text-gray-600 group-hover:text-gray-400 transition-colors" />
-            </button>
+          {stats.map(stat => (
+            <StatCard key={stat.title} {...stat} />
           ))}
         </div>
-      </Card>
+      )}
+      
+      {/* Quick Actions */}
+      {totalComments > 0 && (
+        <Card className="p-4">
+          <h2 className="text-sm font-medium text-gray-300 mb-3">Quick Actions</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {quickActions.map(action => (
+              <button
+                key={action.label}
+                onClick={() => navigate(action.to)}
+                className="flex items-center gap-3 p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-gray-600 transition-all group"
+              >
+                <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${action.color} flex items-center justify-center text-white shadow-lg`}>
+                  {action.icon}
+                </div>
+                <span className="text-sm text-gray-300 group-hover:text-white transition-colors">{action.label}</span>
+                <ArrowRight size={14} className="ml-auto text-gray-600 group-hover:text-gray-400 transition-colors" />
+              </button>
+            ))}
+          </div>
+        </Card>
+      )}
       
       {/* Recent Activity */}
       <Card className="p-4">

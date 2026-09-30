@@ -4,7 +4,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Search, Filter, Download, CheckCircle, XCircle, Eye, Flag, ChevronDown } from 'lucide-react';
+import { Search, Filter, Download, CheckCircle, XCircle, Eye, Flag, ChevronDown, Users, Upload, Gift } from 'lucide-react';
 import { useApp } from '../store/AppContext';
 import { Card, Button, StatusBadge } from '../components/ui';
 import { Entry, FinalStatus } from '../types';
@@ -162,91 +162,124 @@ export default function EntriesPage() {
         </Card>
       )}
       
+      {/* Empty State - No Entries */}
+      {entries.length === 0 && (
+        <Card className="p-12 text-center border-2 border-dashed border-gray-700">
+          <div className="max-w-md mx-auto">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
+              <Users className="text-gray-600" size={32} />
+            </div>
+            <h2 className="text-xl font-bold text-white mb-2">No Entries Yet</h2>
+            <p className="text-sm text-gray-400 mb-6">
+              Import comments from your Instagram reel to get started. Use Phantombuster, Apify, or manual CSV export to extract all 5000+ comments.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button 
+                variant="primary" 
+                size="lg" 
+                onClick={() => navigate(`/giveaways/${giveawayId}/import-guide`)}
+              >
+                <Upload size={18} className="mr-2" /> View Import Guide
+              </Button>
+              <Button 
+                variant="secondary" 
+                size="lg" 
+                onClick={() => navigate(`/giveaways/${giveawayId}`)}
+              >
+                <Gift size={18} className="mr-2" /> Go to Settings
+              </Button>
+            </div>
+          </div>
+        </Card>
+      )}
+      
       {/* Entries Table */}
-      <Card className="overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-700/50">
-                <th className="px-3 py-3 text-left">
-                  <input 
-                    type="checkbox" 
-                    checked={selectedIds.length === filteredEntries.length && filteredEntries.length > 0}
-                    onChange={selectAll}
-                    className="rounded border-gray-600 bg-gray-800 text-pink-500 focus:ring-pink-500"
-                  />
-                </th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase">User</th>
-                <th className="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase">Comment</th>
-                <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Mentions</th>
-                <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Follow</th>
-                <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Repost</th>
-                <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Status</th>
-                <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Flags</th>
-                <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-800/50">
-              {filteredEntries.map(entry => (
-                <tr key={entry.id} className="hover:bg-gray-800/30 transition-colors">
-                  <td className="px-3 py-2.5">
+      {entries.length > 0 && (
+        <Card className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-700/50">
+                  <th className="px-3 py-3 text-left">
                     <input 
-                      type="checkbox"
-                      checked={selectedIds.includes(entry.id)}
-                      onChange={() => toggleSelect(entry.id)}
+                      type="checkbox" 
+                      checked={selectedIds.length === filteredEntries.length && filteredEntries.length > 0}
+                      onChange={selectAll}
                       className="rounded border-gray-600 bg-gray-800 text-pink-500 focus:ring-pink-500"
                     />
-                  </td>
-                  <td className="px-3 py-2.5">
-                    <span className="font-medium text-white">@{entry.entrant_username}</span>
-                    <p className="text-xs text-gray-500">{new Date(entry.created_at).toLocaleDateString()}</p>
-                  </td>
-                  <td className="px-3 py-2.5 max-w-[200px]">
-                    <p className="text-gray-300 truncate text-xs">{state.comments.find(c => c.id === entry.comment_id)?.comment_text || 'N/A'}</p>
-                  </td>
-                  <td className="px-3 py-2.5 text-center">
-                    <span className={`text-sm font-medium ${entry.required_mentions_met ? 'text-emerald-400' : 'text-red-400'}`}>
-                      {entry.mention_count}
-                    </span>
-                  </td>
-                  <td className="px-3 py-2.5 text-center">
-                    <StatusBadge status={entry.follow_verification_status} type="follow" />
-                  </td>
-                  <td className="px-3 py-2.5 text-center">
-                    <StatusBadge status={entry.repost_verification_status} type="repost" />
-                  </td>
-                  <td className="px-3 py-2.5 text-center">
-                    <StatusBadge status={entry.final_status} type="final" />
-                  </td>
-                  <td className="px-3 py-2.5 text-center">
-                    {entry.risk_flags.length > 0 ? (
-                      <span className="inline-flex items-center gap-1 text-orange-400">
-                        <Flag size={12} /> {entry.risk_flags.length}
-                      </span>
-                    ) : (
-                      <span className="text-gray-600">—</span>
-                    )}
-                  </td>
-                  <td className="px-3 py-2.5 text-center">
-                    <button
-                      onClick={() => navigate(`/giveaways/${giveawayId}/entries/${entry.id}`)}
-                      className="text-gray-400 hover:text-pink-400 transition-colors"
-                    >
-                      <Eye size={16} />
-                    </button>
-                  </td>
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase">User</th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase">Comment</th>
+                  <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Mentions</th>
+                  <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Follow</th>
+                  <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Repost</th>
+                  <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Status</th>
+                  <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Flags</th>
+                  <th className="px-3 py-3 text-center text-xs font-medium text-gray-400 uppercase">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        
-        {filteredEntries.length === 0 && (
-          <div className="py-12 text-center">
-            <p className="text-gray-500">No entries match your filter</p>
+              </thead>
+              <tbody className="divide-y divide-gray-800/50">
+                {filteredEntries.map(entry => (
+                  <tr key={entry.id} className="hover:bg-gray-800/30 transition-colors">
+                    <td className="px-3 py-2.5">
+                      <input 
+                        type="checkbox"
+                        checked={selectedIds.includes(entry.id)}
+                        onChange={() => toggleSelect(entry.id)}
+                        className="rounded border-gray-600 bg-gray-800 text-pink-500 focus:ring-pink-500"
+                      />
+                    </td>
+                    <td className="px-3 py-2.5">
+                      <span className="font-medium text-white">@{entry.entrant_username}</span>
+                      <p className="text-xs text-gray-500">{new Date(entry.created_at).toLocaleDateString()}</p>
+                    </td>
+                    <td className="px-3 py-2.5 max-w-[200px]">
+                      <p className="text-gray-300 truncate text-xs">{state.comments.find(c => c.id === entry.comment_id)?.comment_text || 'N/A'}</p>
+                    </td>
+                    <td className="px-3 py-2.5 text-center">
+                      <span className={`text-sm font-medium ${entry.required_mentions_met ? 'text-emerald-400' : 'text-red-400'}`}>
+                        {entry.mention_count}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2.5 text-center">
+                      <StatusBadge status={entry.follow_verification_status} type="follow" />
+                    </td>
+                    <td className="px-3 py-2.5 text-center">
+                      <StatusBadge status={entry.repost_verification_status} type="repost" />
+                    </td>
+                    <td className="px-3 py-2.5 text-center">
+                      <StatusBadge status={entry.final_status} type="final" />
+                    </td>
+                    <td className="px-3 py-2.5 text-center">
+                      {entry.risk_flags.length > 0 ? (
+                        <span className="inline-flex items-center gap-1 text-orange-400">
+                          <Flag size={12} /> {entry.risk_flags.length}
+                        </span>
+                      ) : (
+                        <span className="text-gray-600">—</span>
+                      )}
+                    </td>
+                    <td className="px-3 py-2.5 text-center">
+                      <button
+                        onClick={() => navigate(`/giveaways/${giveawayId}/entries/${entry.id}`)}
+                        className="text-gray-400 hover:text-pink-400 transition-colors"
+                      >
+                        <Eye size={16} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        )}
-      </Card>
+          
+          {filteredEntries.length === 0 && entries.length > 0 && (
+            <div className="py-12 text-center">
+              <p className="text-gray-500">No entries match your filter</p>
+            </div>
+          )}
+        </Card>
+      )}
     </div>
   );
 }
