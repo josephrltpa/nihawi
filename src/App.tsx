@@ -18,6 +18,7 @@ import WinnersPage from './pages/WinnersPage';
 import AuditLogPage from './pages/AuditLogPage';
 import AnnouncementPage from './pages/AnnouncementPage';
 import ImportGuidePage from './pages/ImportGuidePage';
+import ApiSetupWizard from './pages/ApiSetupWizard';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { state } = useApp();
@@ -47,6 +48,7 @@ function AppRoutes() {
       <Route path="/giveaways/:giveawayId/audit-log" element={<ProtectedRoute><AuditLogPage /></ProtectedRoute>} />
       <Route path="/giveaways/:giveawayId/announcement" element={<ProtectedRoute><AnnouncementPage /></ProtectedRoute>} />
       <Route path="/giveaways/:giveawayId/import-guide" element={<ProtectedRoute><ImportGuidePage /></ProtectedRoute>} />
+      <Route path="/giveaways/:giveawayId/api-setup" element={<ProtectedRoute><ApiSetupWizard /></ProtectedRoute>} />
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

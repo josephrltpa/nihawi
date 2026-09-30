@@ -197,8 +197,11 @@ user3,"@pal_one @pal_two @pal_three lets go!",2024-01-15T10:32:00Z,c003`;
           <Button variant="success" size="sm" onClick={() => setShowApiImport(true)}>
             <Key size={14} className="mr-1.5" /> Import via API
           </Button>
+          <Button variant="primary" size="sm" onClick={() => navigate(`/giveaways/${giveawayId}/api-setup`)}>
+            <ExternalLink size={14} className="mr-1.5" /> Step-by-Step Setup Wizard
+          </Button>
           <Button variant="ghost" size="sm" onClick={() => setShowApiSetup(true)}>
-            <ExternalLink size={14} className="mr-1.5" /> Setup Guide
+            <ExternalLink size={14} className="mr-1.5" /> Quick Guide
           </Button>
         </div>
       </Card>

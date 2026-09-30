@@ -6,7 +6,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Users, CheckCircle, Clock, AlertTriangle, Trophy, 
-  Download, Upload, Eye, Sparkles, Gift, ArrowRight 
+  Download, Upload, Eye, Sparkles, Gift, ArrowRight, Zap 
 } from 'lucide-react';
 import { useApp } from '../store/AppContext';
 import { Card, StatCard, Button } from '../components/ui';
@@ -86,16 +86,16 @@ export default function DashboardPage() {
               <Button 
                 variant="primary" 
                 size="lg" 
-                onClick={() => navigate(`/giveaways/${currentGiveaway.id}/import-guide`)}
+                onClick={() => navigate(`/giveaways/${currentGiveaway.id}/api-setup`)}
               >
-                <Upload size={18} className="mr-2" /> Import Guide
+                <Zap size={18} className="mr-2" /> Setup Instagram API
               </Button>
               <Button 
                 variant="secondary" 
                 size="lg" 
-                onClick={() => navigate(`/giveaways/${currentGiveaway.id}`)}
+                onClick={() => navigate(`/giveaways/${currentGiveaway.id}/import-guide`)}
               >
-                <Gift size={18} className="mr-2" /> Go to Settings
+                <Upload size={18} className="mr-2" /> Other Import Methods
               </Button>
             </div>
           </div>
