@@ -1,5 +1,5 @@
 // ============================================================
-// TYPES - Nihawi x Jaui Instagram Giveaway Comment Picker
+// TYPES - Nihawi Puan x Jaui Instagram Giveaway Comment Picker
 // ============================================================
 
 export type UserRole = 'super_admin' | 'moderator' | 'viewer';

@@ -1,4 +1,4 @@
-# Nihawi × Jaui Instagram Giveaway Comment Picker
+# Nihawi Puan × Jaui Instagram Giveaway Comment Picker
 
 A comprehensive web application for managing Instagram giveaways with transparent, auditable winner selection.
 
@@ -27,7 +27,7 @@ A comprehensive web application for managing Instagram giveaways with transparen
 # Initialize git (if not done yet)
 git init
 git add .
-git commit -m "✨ Initial commit - Nihawi x Jaui Giveaway Picker"
+git commit -m "✨ Initial commit - Nihawi Puan x Jaui Giveaway Picker"
 
 # Create a new repo on GitHub, then:
 git branch -M main

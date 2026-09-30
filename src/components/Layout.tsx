@@ -54,7 +54,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex items-center gap-2">
           <Sparkles className="text-pink-500" size={20} />
           <span className="font-bold bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">
-            Nihawi × Jaui
+            Nihawi Puan × Jaui
           </span>
         </div>
         <div className="w-6" />
@@ -71,7 +71,7 @@ export default function Layout({ children }: LayoutProps) {
               </div>
               <div>
                 <h1 className="font-bold text-sm bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">
-                  Nihawi × Jaui
+                  Nihawi Puan × Jaui
                 </h1>
                 <p className="text-[10px] text-gray-500 uppercase tracking-wider">Giveaway Picker</p>
               </div>
