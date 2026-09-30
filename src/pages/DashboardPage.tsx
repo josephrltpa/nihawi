@@ -119,6 +119,37 @@ export default function DashboardPage() {
         </div>
       </Card>
       
+      {/* Giveaway Reel Link */}
+      {currentGiveaway.instagram_post_url && (
+        <Card className="p-4 border-pink-500/20 bg-gradient-to-r from-pink-500/5 to-violet-500/5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-pink-500 to-violet-600 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-white">Giveaway Reel</h3>
+                <a 
+                  href={currentGiveaway.instagram_post_url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs text-pink-400 hover:underline"
+                >
+                  {currentGiveaway.instagram_post_url}
+                </a>
+              </div>
+            </div>
+            <Button variant="secondary" size="sm" onClick={() => navigate(`/giveaways/${currentGiveaway.id}/import-guide`)}>
+              <Upload size={14} className="mr-1.5" /> Import Comments
+            </Button>
+          </div>
+        </Card>
+      )}
+      
       {/* Compliance Notice */}
       <Card className="p-4 border-amber-500/20 bg-amber-500/5">
         <div className="flex items-start gap-3">

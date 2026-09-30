@@ -6,52 +6,52 @@ import { Giveaway, Comment, Entry, Mention, AuditLog, AdminUser, Prize } from '.
 import { v4 as uuidv4 } from 'uuid';
 import { parseMentions } from './mentionParser';
 
-const TARGET_ACCOUNTS = ['nihawi_puan', 'jaui_official'];
+const TARGET_ACCOUNTS = ['nihawi_puan', 'jauigiggles'];
 const GIVEAWAY_ID = 'gw-demo-001';
 
 const fakeComments: { username: string; text: string; hoursAgo: number }[] = [
   // Valid entries with 3+ mentions
-  { username: 'sarah_beauty', text: '@bestie_anna @lisa_moon @cake_lover99 this is amazing! @nihawi_puan @jaui_official 🔥', hoursAgo: 48 },
-  { username: 'jake_runs', text: '@marco_fit @dina.style @rohit.k @nihawi_puan @jaui_official need this!!', hoursAgo: 46 },
-  { username: 'luna.star', text: '@pixie.dust @neon_vibes @cosmic.jay @nihawi_puan @jaui_official omg enter now!!', hoursAgo: 44 },
-  { username: 'dev_king', text: '@code_ninja @pixel_art @tech_guru @nihawi_puan @jaui_official lets gooo', hoursAgo: 42 },
-  { username: 'mia.photo', text: '@sunset.chaser @golden.hour @lens.master @nihawi_puan @jaui_official 📸✨', hoursAgo: 40 },
-  { username: 'alex.music', text: '@beat_maker @melody_queen @rhythm_kid @nihawi_puan @jaui_official fire 🔥🔥', hoursAgo: 38 },
-  { username: 'zoe.yoga', text: '@zen.master @flow_state @namaste_life @nihawi_puan @jaui_official 🧘‍♀️', hoursAgo: 36 },
-  { username: 'ryan.cook', text: '@chef_boy @spice_king @foodie_queen @nihawi_puan @jaui_official yum!', hoursAgo: 34 },
-  { username: 'emma.reads', text: '@bookworm22 @page_turner @novel_addict @nihawi_puan @jaui_official 📚', hoursAgo: 32 },
-  { username: 'tom.travel', text: '@wanderlust99 @globe_trotter @adventure_soul @nihawi_puan @jaui_official ✈️', hoursAgo: 30 },
-  { username: 'nina.dance', text: '@groove_master @dance_fever @rhythm_soul @nihawi_puan @jaui_official 💃', hoursAgo: 28 },
-  { username: 'kai.surf', text: '@wave_rider @ocean_soul @beach_bum22 @nihawi_puan @jaui_official 🏄', hoursAgo: 26 },
-  { username: 'lily.art', text: '@color_palette @brush_stroke @canvas_dream @nihawi_puan @jaui_official 🎨', hoursAgo: 24 },
-  { username: 'max.gaming', text: '@pro_gamer @stream_king @pixel_warrior @nihawi_puan @jaui_official 🎮', hoursAgo: 22 },
-  { username: 'ruby.fashion', text: '@style_icon @trend_setter @fashion_killa @nihawi_puan @jaui_official 👗', hoursAgo: 20 },
+  { username: 'sarah_beauty', text: '@bestie_anna @lisa_moon @cake_lover99 this is amazing! @nihawi_puan @jauigiggles 🔥', hoursAgo: 48 },
+  { username: 'jake_runs', text: '@marco_fit @dina.style @rohit.k @nihawi_puan @jauigiggles need this!!', hoursAgo: 46 },
+  { username: 'luna.star', text: '@pixie.dust @neon_vibes @cosmic.jay @nihawi_puan @jauigiggles omg enter now!!', hoursAgo: 44 },
+  { username: 'dev_king', text: '@code_ninja @pixel_art @tech_guru @nihawi_puan @jauigiggles lets gooo', hoursAgo: 42 },
+  { username: 'mia.photo', text: '@sunset.chaser @golden.hour @lens.master @nihawi_puan @jauigiggles 📸✨', hoursAgo: 40 },
+  { username: 'alex.music', text: '@beat_maker @melody_queen @rhythm_kid @nihawi_puan @jauigiggles fire 🔥🔥', hoursAgo: 38 },
+  { username: 'zoe.yoga', text: '@zen.master @flow_state @namaste_life @nihawi_puan @jauigiggles 🧘‍♀️', hoursAgo: 36 },
+  { username: 'ryan.cook', text: '@chef_boy @spice_king @foodie_queen @nihawi_puan @jauigiggles yum!', hoursAgo: 34 },
+  { username: 'emma.reads', text: '@bookworm22 @page_turner @novel_addict @nihawi_puan @jauigiggles 📚', hoursAgo: 32 },
+  { username: 'tom.travel', text: '@wanderlust99 @globe_trotter @adventure_soul @nihawi_puan @jauigiggles ✈️', hoursAgo: 30 },
+  { username: 'nina.dance', text: '@groove_master @dance_fever @rhythm_soul @nihawi_puan @jauigiggles 💃', hoursAgo: 28 },
+  { username: 'kai.surf', text: '@wave_rider @ocean_soul @beach_bum22 @nihawi_puan @jauigiggles 🏄', hoursAgo: 26 },
+  { username: 'lily.art', text: '@color_palette @brush_stroke @canvas_dream @nihawi_puan @jauigiggles 🎨', hoursAgo: 24 },
+  { username: 'max.gaming', text: '@pro_gamer @stream_king @pixel_warrior @nihawi_puan @jauigiggles 🎮', hoursAgo: 22 },
+  { username: 'ruby.fashion', text: '@style_icon @trend_setter @fashion_killa @nihawi_puan @jauigiggles 👗', hoursAgo: 20 },
   // Valid entries with more than 3 mentions
-  { username: 'chris.fit', text: '@gym_rat @iron_pump @cardio_king @flex_master @nihawi_puan @jaui_official 💪 lets go!', hoursAgo: 18 },
-  { username: 'diana.garden', text: '@plant_mom @green_thumb @bloom_child @nihawi_puan @jaui_official 🌿🌸', hoursAgo: 16 },
-  { username: 'ethan.code', text: '@debug_king @stack_overflow_fan @code_craft @nihawi_puan @jaui_official 🖥️', hoursAgo: 14 },
+  { username: 'chris.fit', text: '@gym_rat @iron_pump @cardio_king @flex_master @nihawi_puan @jauigiggles 💪 lets go!', hoursAgo: 18 },
+  { username: 'diana.garden', text: '@plant_mom @green_thumb @bloom_child @nihawi_puan @jauigiggles 🌿🌸', hoursAgo: 16 },
+  { username: 'ethan.code', text: '@debug_king @stack_overflow_fan @code_craft @nihawi_puan @jauigiggles 🖥️', hoursAgo: 14 },
   // Insufficient mentions (only 2)
-  { username: 'olivia.sing', text: '@music_love @harmony_soul @nihawi_puan @jaui_official love this!', hoursAgo: 12 },
-  { username: 'paul.skate', text: '@kick_flip @board_rider @nihawi_puan @jaui_official sick reel!', hoursAgo: 11 },
+  { username: 'olivia.sing', text: '@music_love @harmony_soul @nihawi_puan @jauigiggles love this!', hoursAgo: 12 },
+  { username: 'paul.skate', text: '@kick_flip @board_rider @nihawi_puan @jauigiggles sick reel!', hoursAgo: 11 },
   // Self mention (mentions themselves)
-  { username: 'quinn.draw', text: '@quinn.draw @art_friend1 @creative_soul @nihawi_puan @jaui_official', hoursAgo: 10 },
-  { username: 'sam.photo', text: '@sam.photo @sam.photo @lens_buddy @nihawi_puan @jaui_official', hoursAgo: 9 },
+  { username: 'quinn.draw', text: '@quinn.draw @art_friend1 @creative_soul @nihawi_puan @jauigiggles', hoursAgo: 10 },
+  { username: 'sam.photo', text: '@sam.photo @sam.photo @lens_buddy @nihawi_puan @jauigiggles', hoursAgo: 9 },
   // Target account mentions only
-  { username: 'tina.love', text: '@nihawi_puan @jaui_official amazing giveaway!!', hoursAgo: 8 },
-  { username: 'uma.star', text: 'Love @nihawi_puan and @jaui_official so much! ❤️', hoursAgo: 7 },
+  { username: 'tina.love', text: '@nihawi_puan @jauigiggles amazing giveaway!!', hoursAgo: 8 },
+  { username: 'uma.star', text: 'Love @nihawi_puan and @jauigiggles so much! ❤️', hoursAgo: 7 },
   // Duplicate mentions
-  { username: 'vic.run', text: '@runner_buddy @runner_buddy @runner_buddy @nihawi_puan @jaui_official', hoursAgo: 6 },
+  { username: 'vic.run', text: '@runner_buddy @runner_buddy @runner_buddy @nihawi_puan @jauigiggles', hoursAgo: 6 },
   // Bot-like username
-  { username: 'xkcd99482', text: '@friend1_x @friend2_y @friend3_z @nihawi_puan @jaui_official', hoursAgo: 5 },
-  { username: 'user8472910', text: '@pal_a @pal_b @pal_c @nihawi_puan @jaui_official', hoursAgo: 4 },
+  { username: 'xkcd99482', text: '@friend1_x @friend2_y @friend3_z @nihawi_puan @jauigiggles', hoursAgo: 5 },
+  { username: 'user8472910', text: '@pal_a @pal_b @pal_c @nihawi_puan @jauigiggles', hoursAgo: 4 },
   // Duplicate entry (same user comments twice)
-  { username: 'sarah_beauty', text: '@bestie_anna @lisa_moon @cake_lover99 @nihawi_puan @jaui_official entering again!!', hoursAgo: 3 },
+  { username: 'sarah_beauty', text: '@bestie_anna @lisa_moon @cake_lover99 @nihawi_puan @jauigiggles entering again!!', hoursAgo: 3 },
   // Valid entry
-  { username: 'wendy.bake', text: '@sugar_rush @flour_power @butter_cream @nihawi_puan @jaui_official 🧁', hoursAgo: 2 },
-  { username: 'xavier.dj', text: '@bass_drop @vinyl_spin @mix_master @nihawi_puan @jaui_official 🎧', hoursAgo: 1 },
+  { username: 'wendy.bake', text: '@sugar_rush @flour_power @butter_cream @nihawi_puan @jauigiggles 🧁', hoursAgo: 2 },
+  { username: 'xavier.dj', text: '@bass_drop @vinyl_spin @mix_master @nihawi_puan @jauigiggles 🎧', hoursAgo: 1 },
   // Same friend set pattern (suspicious)
-  { username: 'yara.knit', text: '@same_friend1 @same_friend2 @same_friend3 @nihawi_puan @jaui_official', hoursAgo: 1 },
-  { username: 'zack.bike', text: '@same_friend1 @same_friend2 @same_friend3 @nihawi_puan @jaui_official', hoursAgo: 1 },
+  { username: 'yara.knit', text: '@same_friend1 @same_friend2 @same_friend3 @nihawi_puan @jauigiggles', hoursAgo: 1 },
+  { username: 'zack.bike', text: '@same_friend1 @same_friend2 @same_friend3 @nihawi_puan @jauigiggles', hoursAgo: 1 },
 ];
 
 export function generateSeedData(): {
@@ -82,10 +82,10 @@ export function generateSeedData(): {
     id: GIVEAWAY_ID,
     name: 'Nihawi x Jaui Mega Giveaway',
     slug: 'nihawi-x-jaui-mega-giveaway',
-    instagram_post_url: 'https://www.instagram.com/reel/CxXxXxXxXx/',
-    instagram_media_id: '1234567890123456789',
+    instagram_post_url: 'https://www.instagram.com/reel/DdQur5BugOd/',
+    instagram_media_id: 'DdQur5BugOd',
     target_account_1: '@nihawi_puan',
-    target_account_2: '@jaui_official',
+    target_account_2: '@jauigiggles',
     min_required_mentions: 3,
     strict_mention_mode: false,
     allow_multiple_entries_per_user: false,

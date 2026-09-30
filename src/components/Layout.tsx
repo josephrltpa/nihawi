@@ -6,7 +6,7 @@ import React, { ReactNode, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { 
   LayoutDashboard, Gift, Users, Shield, Trophy, ScrollText, 
-  Megaphone, Settings, LogOut, Menu, X, ChevronRight, Sparkles 
+  Megaphone, Settings, LogOut, Menu, X, ChevronRight, Sparkles, Upload 
 } from 'lucide-react';
 import { useApp } from '../store/AppContext';
 
@@ -29,6 +29,7 @@ export default function Layout({ children }: LayoutProps) {
   
   const giveawayNav = giveawayId ? [
     { to: `/giveaways/${giveawayId}`, icon: Settings, label: 'Settings' },
+    { to: `/giveaways/${giveawayId}/import-guide`, icon: Upload, label: 'Import Guide' },
     { to: `/giveaways/${giveawayId}/entries`, icon: Users, label: 'Entries' },
     { to: `/giveaways/${giveawayId}/verification`, icon: Shield, label: 'Verification' },
     { to: `/giveaways/${giveawayId}/draw`, icon: Sparkles, label: 'Draw' },
