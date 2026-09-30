@@ -45,6 +45,7 @@ function AppRoutes() {
       <Route path="/giveaways/:giveawayId/winners" element={<ProtectedRoute><WinnersPage /></ProtectedRoute>} />
       <Route path="/giveaways/:giveawayId/audit-log" element={<ProtectedRoute><AuditLogPage /></ProtectedRoute>} />
       <Route path="/giveaways/:giveawayId/announcement" element={<ProtectedRoute><AnnouncementPage /></ProtectedRoute>} />
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
