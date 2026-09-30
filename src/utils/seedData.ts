@@ -80,7 +80,7 @@ export function generateSeedData(): {
   
   const giveaway: Giveaway = {
     id: GIVEAWAY_ID,
-    name: 'Nihawi x Jaui Mega Giveaway',
+    name: 'Nihawi Puan x Jaui Mega Giveaway',
     slug: 'nihawi-x-jaui-mega-giveaway',
     instagram_post_url: 'https://www.instagram.com/reel/DdQur5BugOd/',
     instagram_media_id: 'DdQur5BugOd',

@@ -140,7 +140,7 @@ export function generateAnnouncement(
     : sortedWinners;
   
   let text = `🎉 WINNERS ANNOUNCEMENT 🎉\n\n`;
-  text += `Thank you to everyone who entered our Nihawi × Jaui giveaway!\n\n`;
+  text += `Thank you to everyone who entered our Nihawi Puan × Jaui giveaway!\n\n`;
   text += `And now... the winners are:\n\n`;
   
   displayOrder.forEach(w => {

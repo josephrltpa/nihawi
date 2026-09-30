@@ -54,7 +54,7 @@ export default function LoginPage() {
             <Sparkles className="text-white" size={28} />
           </div>
           <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-400 via-violet-400 to-amber-400 bg-clip-text text-transparent">
-            Nihawi × Jaui
+            Nihawi Puan × Jaui
           </h1>
           <p className="text-gray-400 text-sm mt-1">Instagram Giveaway Comment Picker</p>
         </div>
